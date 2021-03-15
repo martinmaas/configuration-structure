@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+// TODO: Move this into a separate import.
+import "google/protobuf/descriptor.proto";
+extend google.protobuf.EnumOptions {
+    optional bool bitmap = 50004;
+}
+
+package riscv;
+
+message Privileged {
+  // Bitmap: Can have multiple values.
+  enum Mode {
+    option (bitmap) = true;
+    M = 0;
+    S = 1;
+    U = 2;
+  }
+
+  // Regular enum: Only one value.
+  enum Satp {
+    SV39 = 0;
+    SV48 = 1;
+    SV57 = 2;
+    SV64 = 3;
+  }
+
+  Mode modes = 1;
+  bool epmp = 2;
+  Satp satps = 3;
+}
